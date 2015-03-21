@@ -1,14 +1,13 @@
 var app = angular.module("myApp", []);
 
-Chart.defaults.global = {
-    // Boolean - Whether to animate the chart
-    animation: false
-}
-
 app.controller("IndexCtrl", function($scope, $http, $q, $filter, $location) {
   var ref = new Firebase("https://edison-hackathon.firebaseio.com/");
   var dateNow = moment().format("YYYY-MM-DD");
   var timeNow = moment().format("HH:mm:ss");
+
+  $scope.curTemperature = 0;
+  $scope.curNoise = 0;
+  $scope.curLight = 0;
 
   var updateChart = function() {
     var curDate;
@@ -23,12 +22,19 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter, $location) {
       var labels = [];
       var data = [];
 
+      var lastHistory = 0;
       for (var k in history) {
         if (history.hasOwnProperty(k)) {
           labels.push(k);
           data.push(history[k]);
+
+          lastHistory = history[k];
         }
       }
+
+      $scope.$apply(function() {
+        $scope.curTemperature = lastHistory;
+      })
 
       var ctx = document.getElementById("temperatureChart").getContext("2d");
       var chartData = {
@@ -46,7 +52,7 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter, $location) {
               }
           ]
       };
-      var myNewChart = new Chart(ctx).Line(chartData);
+      var myNewChart = new Chart(ctx).Line(chartData, {animation: false});
     });
 
     ref.child(0).child("noise").child(curDate).on("value", function(snapshot) {
@@ -56,12 +62,19 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter, $location) {
       var labels = [];
       var data = [];
 
+      var lastHistory = 0;
       for (var k in history) {
         if (history.hasOwnProperty(k)) {
           labels.push(k);
           data.push(history[k]);
+
+          lastHistory = history[k];
         }
       }
+
+      $scope.$apply(function() {
+        $scope.curNoise = lastHistory;
+      })
 
       var ctx = document.getElementById("noiseChart").getContext("2d");
       var chartData = {
@@ -79,7 +92,7 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter, $location) {
               }
           ]
       };
-      var myNewChart = new Chart(ctx).Line(chartData);
+      var myNewChart = new Chart(ctx).Line(chartData, {animation: false});
     });
 
     ref.child(0).child("light").child(curDate).on("value", function(snapshot) {
@@ -89,12 +102,19 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter, $location) {
       var labels = [];
       var data = [];
 
+      var lastHistory = 0;
       for (var k in history) {
         if (history.hasOwnProperty(k)) {
           labels.push(k);
           data.push(history[k]);
+
+          lastHistory = history[k];
         }
       }
+
+      $scope.$apply(function() {
+        $scope.curLight = lastHistory;
+      })
 
       var ctx = document.getElementById("lightChart").getContext("2d");
       var chartData = {
@@ -112,7 +132,7 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter, $location) {
               }
           ]
       };
-      var myNewChart = new Chart(ctx).Line(chartData);
+      var myNewChart = new Chart(ctx).Line(chartData, {animation: false});
     });
   }
 
