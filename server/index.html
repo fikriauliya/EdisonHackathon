@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Theme Template for Bootstrap</title>
+    <title>Baby monitoring</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Bootstrap theme</a>
+          <a class="navbar-brand" href="#">Baby monitoring</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -66,11 +66,14 @@
         <div class="col-sm-4">
           <div class="panel panel-primary">
             <div class="panel-heading">
-              <h3 class="panel-title">Temperature</h3>
+              <h3 class="panel-title">Temperature near Baby</h3>
             </div>
             <div class="panel-body">
               <large>
                 {{curtemperature | number: 2}} Celsius
+                <span ng-if="curtemperature > 28" class="hot">(Too hot)</span>
+                <span ng-if="curtemperature <= 28 && curtemperature >= 20 ">(Normal)</span>
+                <span ng-if="curtemperature < 20"  class="cold">(Too cold)</span>
               </large>
             </div>
           </div>
@@ -78,11 +81,11 @@
         <div class="col-sm-4">
           <div class="panel panel-success">
             <div class="panel-heading">
-              <h3 class="panel-title">Noise</h3>
+              <h3 class="panel-title">Noise near Baby</h3>
             </div>
             <div class="panel-body">
               <large>
-                {{curnoise | number: 2}}
+                {{curnoise | number: 2}} dB
               </large>
             </div>
           </div>
@@ -90,11 +93,13 @@
         <div class="col-sm-4">
           <div class="panel panel-danger">
             <div class="panel-heading">
-              <h3 class="panel-title">Light</h3>
+              <h3 class="panel-title">Light in the room</h3>
             </div>
             <div class="panel-body">
               <large>
                 {{curlight | number: 2}}
+                <span ng-if="curlight < 100" class="cold">(Lamp off)</span>
+                <span ng-if="curlight >= 100" class="hot">(Lamp on)</span>
               </large>
             </div>
           </div>
@@ -104,7 +109,13 @@
       <hr/>
       <div class="row">
         <div class="col-sm-12">
-          <h4>History</h4>
+          <h4>History for {{curDate}}</h4>
+          <nav> 
+            <ul class="pager">
+              <li><a href="" ng-click="updateChart(iDay - 1)">Previous day</a></li>
+              <li><a href="" ng-click="updateChart(iDay + 1)">Next day</a></li>
+            </ul>
+          </nav>
         </div>
         <div class="col-sm-12">
           <h4>Temperature</h4>
