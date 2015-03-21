@@ -102,7 +102,7 @@ function startSensorWatch() {
         var curDate = moment().add(8, "hours").format("YYYY-MM-DD");
         var curTime = moment().add(8, "hours").format("HH:mm:ss");
         myRootRef.child(0).child("temperature").child(curDate).child(curTime).set(celsius_temperature);
-    }, 4000);
+    }, 20000);
     
     
     //Sound
@@ -114,17 +114,19 @@ function startSensorWatch() {
         
         if (count == 4) {
             var sound = totalSound/4;
-            console.log("Average sound last 4 seconds: " + sound);
+            var volt = sound * 5.0 / 1024.0;
+            var dB = 20 * Math.log(volt / 0.775) / Math.LN10;
+            console.log("Average sound last 4 seconds: " + dB);
             var curDate = moment().add(8, "hours").format("YYYY-MM-DD");
             var curTime = moment().add(8, "hours").format("HH:mm:ss");
-            myRootRef.child(0).child("noise").child(curDate).child(curTime).set(sound);
+            myRootRef.child(0).child("noise").child(curDate).child(curTime).set(dB);
             count = 0;
             totalSound = 0;
         }
         totalSound += a;
         //myRootRef.child("test").set({"temperature": celsius_temperature});
         count++;
-    }, 1000);
+    }, 5000);
     
     //Light
     setInterval(function () {
@@ -137,7 +139,7 @@ function startSensorWatch() {
         var curDate = moment().add(8, "hours").format("YYYY-MM-DD");
         var curTime = moment().add(8, "hours").format("HH:mm:ss");
         myRootRef.child(0).child("light").child(curDate).child(curTime).set(a);
-    }, 4000);
+    }, 20000);
     
 }
 
