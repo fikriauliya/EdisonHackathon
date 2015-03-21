@@ -8,18 +8,25 @@ var port = Number(process.env.PORT || 3000);
 
 console.log("port is: " + port);
 
-server.listen(port, function(){
-  console.log('listening on *:'+port);
+app.get('/', function(req, res) {
+  var message = req.query.message;
+  var number = req.query.number;
+
+  //Functions
+  var data = {
+    "recipients" : number,
+    "subject" : "Baby notification\n",
+    "msg" : message
+  };
+  console.log(data);
+  sendMessage(data);
+
+  res.send("Success");
 });
 
-//Functions
-var data = {
-  "recipients" : "<number>",
-  "subject" : "<subject>",
-  "msg" : "<body>"
-};
-
-sendMessage(data);
+app.listen(port, function(){
+  console.log('listening on *:'+port);
+});
 
 /*
 DATA Format
@@ -31,9 +38,9 @@ DATA Format
 */
 function sendMessage(data) {
 
-    var username = "<REPLACEME>";
-    var password = "<REPLACEME>";
-    var apikey = "<REPLACEME>";
+    var username = "ariefsetiawan";
+    var password = "p@ssw0rd";
+    var apikey = "ktmvmbvvdbjcvvzen6wn8wx8";
 
     // the post options
     var post = {
