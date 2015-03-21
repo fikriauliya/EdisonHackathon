@@ -27,7 +27,8 @@
 
     <script src="js/angular.min.js"></script>
     <script src="js/moment.min.js"></script>
-    <script src="js/index-controller.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/index-controller.js?v=1"></script>
     <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
   </head>
 
@@ -55,7 +56,12 @@
 
     <div class="container" role="main">
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-12">
+          <h4>Current data</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
           <div class="panel panel-primary">
             <div class="panel-heading">
               <h3 class="panel-title">Temperature</h3>
@@ -64,8 +70,8 @@
               Panel content
             </div>
           </div>
-        </div><!-- /.col-sm-3 -->
-        <div class="col-sm-3">
+        </div><!-- /.col-sm-4 -->
+        <div class="col-sm-4">
           <div class="panel panel-success">
             <div class="panel-heading">
               <h3 class="panel-title">Noise</h3>
@@ -74,8 +80,8 @@
               Panel content
             </div>
           </div>
-        </div><!-- /.col-sm-3 -->
-        <div class="col-sm-3">
+        </div><!-- /.col-sm-4 -->
+        <div class="col-sm-4">
           <div class="panel panel-danger">
             <div class="panel-heading">
               <h3 class="panel-title">Light</h3>
@@ -84,19 +90,23 @@
               Panel content
             </div>
           </div>
-        </div><!-- /.col-sm-3 -->
-        <div class="col-sm-3">
-          <div class="panel panel-info  ">
-            <div class="panel-heading">
-              <h3 class="panel-title">Button</h3>
-            </div>
-            <div class="panel-body">
-              Panel content
-            </div>
-          </div>
-        </div><!-- /.col-sm-3 -->
+        </div><!-- /.col-sm-4 -->
       </div>
 
+      <hr/>
+      <div class="row">
+        <div class="col-sm-12">
+          <h4>History</h4>
+        </div>
+        <div class="col-sm-12">
+          <h4>Temperature</h4>
+          <canvas id="temperatureChart" width="1100px" height="250"></canvas>
+          <h4>Noise</h4>
+          <canvas id="noiseChart" width="1100px" height="250"></canvas>
+          <h4>Light</h4>
+          <canvas id="lightChart" width="1100px" height="250"></canvas>
+        </div>
+      </div>
     </div> <!-- /container -->
 
 

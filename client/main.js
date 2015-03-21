@@ -20,8 +20,12 @@ Article: https://software.intel.com/en-us/html5/articles/iot-local-temperature-n
 var B = 3975;
 var mraa = require("mraa");
 
-//GROVE Kit A0 Connector --> Aio(0)
-var myAnalogPin = new mraa.Aio(0);
+//GROVE Kit A0 Connector --> Aio(0) --> temperature
+var temperaturePin = new mraa.Aio(0);
+//GROVE KIT A1 Connector --> Aio(1) --> sound
+var soundPin = new mraa.Aio(1);
+//GROVE KIT A2 Connector --> Aio(2) --> light
+var lightPin = new mraa.Aio(2);
 
 /*
 Function: startSensorWatch(socket)
@@ -30,8 +34,9 @@ Description: Read Temperature Sensor and send temperature in degrees of Fahrenhe
 */
 function startSensorWatch() {
     'use strict';
+    //Temperature
     setInterval(function () {
-        var a = myAnalogPin.read();
+        var a = temperaturePin.read();
         console.log("Analog Pin (A0) Output: " + a);
         //console.log("Checking....");
         
@@ -40,10 +45,40 @@ function startSensorWatch() {
         var celsius_temperature = 1 / (Math.log(resistance / 10000) / B + 1 / 298.15) - 273.15;//convert to temperature via datasheet ;
         //console.log("Celsius Temperature "+celsius_temperature); 
         var fahrenheit_temperature = (celsius_temperature * (9 / 5)) + 32;
-        console.log("Fahrenheit TemperatureS: " + celsius_temperature);
+        console.log("Celcius Temperature: " + celsius_temperature);
         
-        myRootRef.child("test").set({"temperature": celsius_temperature});
+        //myRootRef.child("test").set({"temperature": celsius_temperature});
     }, 4000);
+    
+    
+    //Sound
+    var totalSound = 0;
+    var count = 0;
+    setInterval(function () {
+        var a = soundPin.read();
+        //console.log("Checking....");
+        
+        if (count == 4) {
+            console.log("Average sound last 4 seconds: " + totalSound/4);
+            count = 0;
+            totalSound = 0;
+        }
+        totalSound += a;
+        //myRootRef.child("test").set({"temperature": celsius_temperature});
+        count++;
+    }, 1000);
+    
+    //Light
+    setInterval(function () {
+        var a = lightPin.read();
+        var sensor_resistance = (1023-a)*10/a;
+        //console.log("Checking....");
+        
+        console.log("Light sensor : " + a);
+        console.log("sensor resistance : " + sensor_resistance);
+        
+    }, 4000);
+    
 }
 
 console.log("Server created");
