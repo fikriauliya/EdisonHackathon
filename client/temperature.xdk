@@ -1,0 +1,24 @@
+{
+  "project": {
+    "projectSettingsVersion": "1.2",
+    "creationData": {
+      "projectTypeName": "com.intel.xdk.projecttype.iotapp",
+      "src": "https://edge-intel.s3.amazonaws.com/iotapp/production/release-2015-ww07/iotapp-local-temperature/sample.zip",
+      "projectGuid": "4a32016b-1060-4011-b924-4f6436c069bc",
+      "lastModifiedDate": 1426907588047,
+      "creationDate": 1426907587947
+    },
+    "sourceDirectory": "",
+    "cordovaPluginsDirectory": "plugins",
+    "startFile": "main.js",
+    "projectFiles": {},
+    "projectDirectories": {},
+    "libraries": [],
+    "cordovaPlugins": [],
+    "serviceMethods": [],
+    "gameAssetDirectory": "asset",
+    "gameMetadata": {},
+    "projectTags": [],
+    "buildConfigurations": {}
+  }
+}
