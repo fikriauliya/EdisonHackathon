@@ -8,6 +8,7 @@
   },
   "dependencies": {
       "socket.io":"latest",
-      "firebase":"latest"
+      "firebase":"latest",
+      "moment":"latest"
   }
 }
