@@ -99,8 +99,8 @@ function startSensorWatch() {
         var fahrenheit_temperature = (celsius_temperature * (9 / 5)) + 32;
         console.log("Celcius Temperature: " + celsius_temperature);
         
-        var curDate = moment().format("YYYY-MM-DD");
-        var curTime = moment().format("HH:mm:ss");
+        var curDate = moment().add(8, "hours").format("YYYY-MM-DD");
+        var curTime = moment().add(8, "hours").format("HH:mm:ss");
         myRootRef.child(0).child("temperature").child(curDate).child(curTime).set(celsius_temperature);
     }, 4000);
     
@@ -115,8 +115,8 @@ function startSensorWatch() {
         if (count == 4) {
             var sound = totalSound/4;
             console.log("Average sound last 4 seconds: " + sound);
-            var curDate = moment().format("YYYY-MM-DD");
-            var curTime = moment().format("HH:mm:ss");
+            var curDate = moment().add(8, "hours").format("YYYY-MM-DD");
+            var curTime = moment().add(8, "hours").format("HH:mm:ss");
             myRootRef.child(0).child("noise").child(curDate).child(curTime).set(sound);
             count = 0;
             totalSound = 0;
@@ -134,8 +134,8 @@ function startSensorWatch() {
         
         console.log("Light sensor : " + a);
         console.log("sensor resistance : " + sensor_resistance);
-        var curDate = moment().format("YYYY-MM-DD");
-        var curTime = moment().format("HH:mm:ss");
+        var curDate = moment().add(8, "hours").format("YYYY-MM-DD");
+        var curTime = moment().add(8, "hours").format("HH:mm:ss");
         myRootRef.child(0).child("light").child(curDate).child(curTime).set(a);
     }, 4000);
     
